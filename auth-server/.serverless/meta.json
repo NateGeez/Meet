@@ -1,4 +1,20 @@
 {
+  "unknown": {
+    "versionSfCore": null,
+    "versionFramework": "4.2.4",
+    "isWithinCompose": false,
+    "composeOrgName": null,
+    "composeServiceName": null,
+    "command": [],
+    "options": {},
+    "error": null,
+    "machineId": "e16e75591030c546595b9ca6504bdffc",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  },
   "C:\\Users\\natha\\Documents\\Meet\\auth-server": {
     "versionSfCore": null,
     "versionFramework": "4.2.4",
@@ -6,7 +22,55 @@
     "isCompose": false,
     "composeOrgName": null,
     "composeResolverProviders": {
-      "default-aws-credential-resolver": "<REDACTED>"
+      "default-aws-credential-resolver": "<REDACTED>",
+      "file": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "nategeez",
+            "service": "auth-server",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "region": "eu-central-1",
+              "timeout": 30,
+              "environment": {
+                "CLIENT_ID": "855056468257-mlet9ln447pg7q983vk3bhdlfqq2hk27.apps.googleusercontent.com",
+                "CLIENT_SECRET": "<REDACTED>",
+                "CALENDAR_ID": "fullstackwebdev@careerfoundry.com",
+                "IS_LOCAL": "true"
+              },
+              "stage": "dev",
+              "versionFunctions": true
+            },
+            "functions": {
+              "getAuthURL": {
+                "handler": "handler.getAuthURL",
+                "events": [
+                  {
+                    "http": {
+                      "path": "api/get-auth-url",
+                      "method": "get"
+                    }
+                  }
+                ],
+                "name": "auth-server-dev-getAuthURL"
+              }
+            }
+          },
+          "configFileDirPath": "C:\\Users\\natha\\Documents\\Meet\\auth-server",
+          "config": {
+            "type": "file"
+          },
+          "options": {
+            "function": "getAuthURL"
+          },
+          "stage": "dev",
+          "dashboard": null,
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
     },
     "composeServiceName": null,
     "servicePath": "C:\\Users\\natha\\Documents\\Meet\\auth-server",
@@ -16,31 +80,42 @@
       "service": "auth-server",
       "provider": {
         "name": "aws",
-        "runtime": "nodejs14.x",
+        "runtime": "nodejs20.x",
+        "region": "eu-central-1",
+        "timeout": 30,
+        "environment": {
+          "CLIENT_ID": "855056468257-mlet9ln447pg7q983vk3bhdlfqq2hk27.apps.googleusercontent.com",
+          "CLIENT_SECRET": "<REDACTED>",
+          "CALENDAR_ID": "fullstackwebdev@careerfoundry.com",
+          "IS_LOCAL": "true"
+        },
         "stage": "dev",
-        "region": "us-east-1",
         "versionFunctions": true
       },
       "functions": {
-        "hello": {
-          "handler": "handler.hello"
+        "getAuthURL": {
+          "handler": "handler.getAuthURL",
+          "events": [
+            {
+              "http": {
+                "path": "api/get-auth-url",
+                "method": "get"
+              }
+            }
+          ],
+          "name": "auth-server-dev-getAuthURL"
         }
       }
     },
-    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: nategeez\nservice: auth-server\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs14.x\r\n\r\nfunctions:\r\n  hello:\r\n    handler: handler.hello\r\n",
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: nategeez\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: auth-server\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: eu-central-1\n  timeout: 30 # optional, in seconds, default is 6\n  environment:\n    CLIENT_ID: ${file(config.json):CLIENT_ID}\n    CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}\n    CALENDAR_ID: ${file(config.json):CALENDAR_ID}\nfunctions:\n  getAuthURL:\n    handler: handler.getAuthURL\n    events:\n      - http:\n          path: api/get-auth-url\n          method: get\n",
     "command": [
-      "config",
-      "credentials"
+      "invoke",
+      "local"
     ],
     "options": {
-      "provider": "aws",
-      "key": "AKIAYKFQQRVEFGIZC747",
-      "secret": "<REDACTED>"
+      "function": "getAuthURL"
     },
-    "error": {
-      "message": "The \"config credentials\" command was deprecated in v4. To configure your AWS credentials, run the \"serverless\" command instead.",
-      "code": "UNRECOGNIZED_CLI_COMMAND"
-    },
+    "error": null,
     "params": {},
     "machineId": "e16e75591030c546595b9ca6504bdffc",
     "accessKeyV2": "<REDACTED>",
@@ -60,9 +135,12 @@
     "userName": "nategeez",
     "subscription": null,
     "userEmail": "nathan.gefaller@gmail.com",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "571600833864",
     "projectType": "framework",
     "versionSf": "4.2.4",
     "serviceProviderAwsCfStackName": "auth-server-dev",
+    "integrations": {},
     "serviceProviderAwsCfStackId": null,
     "serviceProviderAwsCfStackCreated": null,
     "serviceProviderAwsCfStackUpdated": null,

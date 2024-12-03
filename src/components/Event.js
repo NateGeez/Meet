@@ -17,7 +17,7 @@ const Event = ({ event }) => {
       )}
       {showDetails && (
         <>
-          <p>{event.description}</p>
+          <p className="details">{event.description}</p>
           <button onClick={handleToggleDetails}>Hide Details</button>
         </>
       )}

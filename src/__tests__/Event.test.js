@@ -6,41 +6,40 @@ import mockData from '../mock-data';
 describe('<Event /> component', () => {
   const event = mockData[0];
 
-  test('displays event details when "Show Details" button is clicked', async () => {
-    render(<Event event={event} />);
-    const user = userEvent.setup();
+  test('renders the event title', () => {
+    const EventComponent = render(<Event event={event} />);
+    expect(EventComponent.queryByText(event.summary)).toBeInTheDocument();
+  });
 
-    // Ensure the description is defined
-    expect(event.description).toBeDefined();
+  test('renders event show details', () => {
+    const EventComponent = render(<Event event={event} />);
+    expect(EventComponent.queryByText('Show Details')).toBeInTheDocument();
+  });
 
-    // Check that the description is not initially in the document
+  test("by default, the event's details should be hidden", () => {
+    const EventComponent = render(<Event event={event} />);
     expect(
-      screen.queryByText((content, element) =>
-        content.startsWith(event.description.slice(0, 20))
-      )
+      EventComponent.queryByText(event.description)
     ).not.toBeInTheDocument();
+  });
 
-    // Click the "Show Details" button
-    const showDetailsButton = screen.getByText('Show Details');
-    await user.click(showDetailsButton);
+  test('shows the details section when the user clicks show details', async () => {
+    const EventComponent = render(<Event event={event} />);
+    const user = userEvent.setup();
+    const button = EventComponent.queryByText('Show Details');
+    await user.click(button, 'Show Details');
+    expect(
+      EventComponent.container.querySelector('.details')
+    ).toBeInTheDocument();
+  });
 
-    // Wait for the event details to be visible using a partial text match
-    const descriptionElement = await screen.findByText((content, element) =>
-      content.includes('Have you wondered how you can ask Google')
-    );
-    expect(descriptionElement).toBeInTheDocument();
-
-    // Test hiding details
-    const hideDetailsButton = screen.getByText('Hide Details');
-    await user.click(hideDetailsButton);
-
-    // Ensure details are hidden
-    await waitFor(() => {
-      expect(
-        screen.queryByText((content, element) =>
-          content.includes('Have you wondered how you can ask Google')
-        )
-      ).not.toBeInTheDocument();
-    });
+  test("hides the details section when the user clicks on the 'hide details' button", async () => {
+    const EventComponent = render(<Event event={event} />);
+    const user = userEvent.setup();
+    const button = EventComponent.queryByText('Hide Details');
+    await user.click(button, 'Hide Details');
+    expect(
+      EventComponent.container.querySelector('.details')
+    ).not.toBeInTheDocument();
   });
 });

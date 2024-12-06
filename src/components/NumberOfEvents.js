@@ -5,15 +5,14 @@ const NumberOfEvents = ({ onChangeNumber }) => {
   const [value, setValue] = useState(32);
 
   const handleInputChange = (event) => {
-    const newValue = Number(event.target.value);
+    const newValue = event.target.value;
 
-    if (newValue >= 1 && newValue <= 100) {
-      setValue(newValue); // Update state
-      onChangeNumber(newValue); // Trigger callback only for valid input
-    } else if (newValue === 0) {
-      // Avoid 0 value or set to a default value
-      setValue(32); // Reset to default if 0 is typed
-    }
+    console.log('input value changed to:', newValue);
+
+    const numericValue = newValue === '' ? '' : Number(newValue);
+
+    setValue(numericValue);
+    onChangeNumber(numericValue);
   };
 
   return (
